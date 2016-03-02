@@ -1,0 +1,110 @@
+<!DOCTYPE html >
+<html lang="en"
+      ng-app="myAngularApp">
+<head >
+    <title >Controllers</title >
+    <link href="../libs/bootstrap/dist/css/bootstrap.min.css"
+          rel="stylesheet" >
+    <link href="../css/main.css"
+          rel="stylesheet" >
+</head >
+
+<body >
+
+<nav class="navbar navbar-inverse navbar-fixed-top" >
+    <div class="container" >
+        <div class="navbar-header" >
+            <a class="navbar-brand"
+               href="/" >Controllers
+            </a >
+        </div >
+        ,
+    </div >
+</nav >
+
+<div class="container main-content" ng-controller="formValidationCtrl as formValidateCtrl">
+
+    <form ng-submit="formValidateCtrl.onSubmit(formStateFields.$valid)" name="formStateFields" novalidate="novalidate">
+        <div class="form-group" >
+            <label for="name" >Name</label >
+            <input type="text"
+                   class="form-control"
+                   ng-model="formValidateCtrl.formModel.name"
+                   id="name" >
+        </div >
+
+        <div class="form-group" ng-class="
+            { 'has-error': !formStateFields.emailStateFields.$valid && (!formStateFields.$pristine || formStateFields.$submitted),
+              'has-success': formStateFields.emailStateFields.$valid && (!formStateFields.$pristine || formStateFields.$submitted),
+            }">
+            <label for="email" >Email</label >
+            <input type="email"
+                   class="form-control"
+                   ng-model="formValidateCtrl.formModel.email"
+                   id="email"
+                   required="required"
+                   name="emailStateFields">
+        </div >
+        <!--<pre>{{formStateFields.emailStateFields.$error}}</pre>-->
+        <p class="help-block" ng-show="formStateFields.emailStateFields.$error.required && (!formStateFields.$pristine || formStateFields.$submitted)">
+            This field is required
+        </p>
+        <p class="help-block" ng-show="formStateFields.emailStateFields.$error.email && (!formStateFields.$pristine || formStateFields.$submitted)">
+            Please enter an email with at least an @ symbol
+        </p>
+
+        <div class="form-group" >
+            <label for="username" >Username</label >
+            <input type="text"
+                   class="form-control"
+                   id="username"
+                   ng-model="formValidateCtrl.formModel.username">
+        </div >
+
+        <div class="form-group" >
+            <label for="age" >Age</label >
+            <input type="number"
+                   class="form-control"
+                   id="age"
+                   ng-model="formValidateCtrl.formModel.age" >
+        </div >
+
+        <div class="form-group" >
+            <label for="sex" >Sex</label >
+            <select name="sex"
+                    id="sex"
+                    class="form-control"
+                    ng-model="formValidateCtrl.formModel.sex">
+                <option value="" >Please Choose</option >
+                <option value="male" >Male</option >
+                <option value="female" >Female</option >
+            </select >
+        </div >
+
+        <div class="form-group" >
+            <label for="password" >Password</label >
+            <input type="password"
+                   class="form-control"
+                   ng-model="formValidateCtrl.formModel.password"
+                   id="password" >
+        </div >
+
+        <div class="form-group" >
+            <button class="btn btn-primary"
+                    type="submit"
+            >Register
+            </button >
+        </div >
+
+        <!--<pre>{{ formStateFields | json }}</pre>-->
+
+    </form >
+
+</div >
+
+<script src="../libs/angular/angular.js" ></script >
+<script src="../js/main.js" ></script >
+
+
+</body >
+</html >

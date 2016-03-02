@@ -1,0 +1,117 @@
+    <!DOCTYPE html >
+    <html lang="en"
+          ng-app="myAngularApp">
+    <head >
+        <title >Controllers</title >
+        <link href="../libs/bootstrap/dist/css/bootstrap.min.css"
+              rel="stylesheet" >
+        <link href="../css/main.css"
+              rel="stylesheet" >
+        <link rel="stylesheet" href="../libs/ladda/dist/ladda-themeless.min.css">
+    </head >
+
+    <body >
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" >
+        <div class="container" >
+            <div class="navbar-header" >
+                <a class="navbar-brand"
+                   href="/" >Controllers
+                </a >
+            </div >
+            ,
+        </div >
+    </nav >
+
+    <div class="container main-content" ng-controller="formValidationCtrl as formValidateCtrl">
+
+        <form ng-submit="formValidateCtrl.onSubmit()" novalidate="novalidate">
+            <div class="form-group" >
+                <label for="name" >Name</label >
+                <input type="text"
+                       class="form-control"
+                       ng-model="formValidateCtrl.formModel.name"
+                       id="name"
+                       required="required" >
+            </div >
+
+            <div class="form-group">
+                <label for="email" >Email</label >
+                <input type="email"
+                       class="form-control"
+                       ng-model="formValidateCtrl.formModel.email"
+                       id="email"
+                       required="required"
+                       name="emailStateFields">
+            </div >
+
+            <div class="form-group" >
+                <label for="username" >Username</label >
+                <input type="text"
+                       class="form-control"
+                       id="username"
+                       ng-model="formValidateCtrl.formModel.username"
+                       required="required"
+                       ng-pattern="/^[A-Za-z0-9_]{1,32}$/"
+                       ng-maxlength="8"
+                       ng-pattern-err-type="Username">
+            </div >
+
+            <div class="form-group" >
+                <label for="age" >Age</label >
+                <input type="number"
+                       class="form-control"
+                       id="age"
+                       ng-model="formValidateCtrl.formModel.age"
+                       required="required"
+                       min="18"
+                       max="64"
+                       ng-min-err-type="tooYoung"
+                       ng-max-err-type="tooOld">
+            </div >
+
+            <div class="form-group" >
+                <label for="sex" >Sex</label >
+                <select name="sex"
+                        id="sex"
+                        class="form-control"
+                        ng-model="formValidateCtrl.formModel.sex"
+                        required="required">
+                    <option value="" >Please Choose</option >
+                    <option value="male" >Male</option >
+                    <option value="female" >Female</option >
+                </select >
+            </div >
+
+            <div class="form-group" >
+                <label for="password" >Password</label >
+                <input type="password"
+                       class="form-control"
+                       ng-model="formValidateCtrl.formModel.password"
+                       id="password"
+                       required="required">
+            </div >
+
+            <div class="form-group" >
+                <button class="btn btn-primary"
+                type="submit"
+                        data-style="expand-right"
+                        ladda="formValidateCtrl.submitting"
+                >Register
+                </button >
+            </div >
+
+
+        </form >
+
+    </div >
+
+    <script src="../libs/angular/angular.js" ></script >
+    <script src="../js/main.js" ></script >
+    <script src="../libs/angular-auto-validate/dist/jcs-auto-validate.min.js" ></script >
+    <script src="../libs/ladda/dist/spin.min.js"></script>
+    <script src="../libs/ladda/dist/ladda.min.js"></script>
+    <script src="../libs/angular-ladda/dist/angular-ladda.min.js"></script>
+
+    </body >
+    </html >
