@@ -5,6 +5,16 @@ var listApplication = angular.module('angularListApplication',[]);
 
 listApplication.controller('loopController',function(){
     var self = this;
+    self.search = null;
+    self.selectPerson = function (person) {
+        self.selectedPerson = person;
+    };
+    self.customSearch = function(person){
+        if(self.search) {
+            return person['name'].indexOf(self.search) == 0 || person['email'].indexOf(self.search) == 0;
+        }
+        return true;
+    };
     self.persons = [
         {
             "name": "Gregory Huffman",
