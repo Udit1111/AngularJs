@@ -6,7 +6,7 @@ var app = angular.module('codecraft', [
 ]);
 
 app.config( function ($httpProvider, $resourceProvider){
-    $httpProvider.defaults.headers.common['Authorization'] = 'Token 20002cd74d5ce124ae219e739e18956614aab490';
+    $httpProvider.defaults.headers.common['Authorization'] = 'Token 72d16cc1ce7a74938f36944f1ed8c0513e827d15';
     $resourceProvider.defaults.stripTrailingSlashes = false;
 });
 
@@ -24,7 +24,7 @@ app.controller('PersonListController', function ($scope, ContactService) {
     $scope.order = "email";
     $scope.contacts = ContactService;
     $scope.loadMore = function(){
-      console.log("Load More !!")
+      $scope.contacts.loadMore();
     };
     $scope.sensitiveSearch = function (person) {
         if ($scope.search) {
@@ -38,25 +38,38 @@ app.controller('PersonListController', function ($scope, ContactService) {
 
 app.service('ContactService', function (Contact) {
 
-    var self =  {
+    var self = {
         'addPerson': function (person) {
             this.persons.push(person);
         },
-        'Page': 1,
+        'Page': 0,
         'hasMore': true,
         'isLoading': false,
         'selectedPerson': null,
         'persons': [],
-        'loadContacts': function(){
-            Contact.get(function(data){
-                data.results.forEach(function(person){
-                    self.persons.push( new Contact(person));
+        'loadContacts': function () {
+            if (self.hasMore && !self.isLoading) {
+                self.isLoading = true;
+                var params = {
+                    'page': self.Page
+                };
+                Contact.get(params, function (data) {
+                    angular.forEach(data.results, function (person) {
+                        self.persons.push(new Contact(person));
+                    });
+                    if (!data.next) {
+                        self.hasMore = false;
+                    }
+                    self.isLoading = false;
                 });
-            });
+            }
+        },
+        'loadMore': function () {
+            if (self.hasMore && !self.isLoading) {
+                self.Page += 1;
+                self.loadContacts();
+            }
         }
-    };
-
-    self.loadContacts();
+    }
     return self;
-
 });

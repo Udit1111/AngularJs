@@ -33,7 +33,7 @@
                             <input type="text"
                                    class="form-control"
                                    id="name"
-                                   ng-model="search"
+                                   ng-model="search.$"
                                    placeholder="Search name..."
                             />
                         </div >
@@ -71,7 +71,7 @@
                             <th >Birthday</th >
                         </tr >
 
-                        <tr ng-repeat="person in filteredPersons = (contacts.persons | filter:sensitiveSearch | orderBy:order)"
+                        <tr ng-repeat="person in filteredPersons = (contacts.persons | filter:search | orderBy:order)"
                             ng-style="{
 							 'background-color': person.email == contacts.selectedPerson.email ? 'lightgray' : ''
 						}"
